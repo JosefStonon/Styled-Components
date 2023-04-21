@@ -7,7 +7,44 @@ import Layout from './components/Layout';
 
 import themes from './styles/themes';
 
-function App() {
+class App extends React.Component {
+  constructor(props) {
+    super(props); //super faz referencia a classe extends. Como boa pratica e avitar problemas futuros tambem se passa a props no super.
+
+
+    this.state = {
+      theme: 'dark',
+      oiTudoBem: true
+    };
+  }
+
+
+  render() {
+
+    const { theme } = this.state;
+
+    console.log(this.state)
+
+
+    return (
+      <ThemeProvider theme={themes[theme] || themes.dark}>
+        <GlobalStyle />
+  
+  
+          <Layout 
+          onToggleTheme={() => {
+            this.setState(prevState => ({theme: prevState.theme === 'dark' ? 'light' : 'dark'}));
+          }}
+          selectedTheme={theme}
+        />
+  
+      </ThemeProvider>
+    );
+  }
+}
+
+
+/* function App() {
 
 
   const [theme, setTheme] = useState('dark');
@@ -28,23 +65,21 @@ function App() {
       firstRender.current = false;
       return;
     }
-
-      console.log({ theme });
   }, [theme])
 
 
   return (
     <ThemeProvider theme={currentTheme}>
       <GlobalStyle />
-      <button onClick={handleToggleTheme}>Toogle</button>
-      {theme === 'dark' && (
+
+
         <Layout 
         onToggleTheme={handleToggleTheme}
         selectedTheme={theme}
       />
-      )}
+
     </ThemeProvider>
   );
-};
+}; */
 
 export default App;

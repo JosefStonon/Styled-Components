@@ -10,7 +10,7 @@ useEffect(() => {
   console.log({ selectedTheme });
 
   return () => {
-    console.log('Componente saiu da tela.')
+
   }
 
 }, [selectedTheme]);
