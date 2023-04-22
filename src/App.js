@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useEffect, useRef } from 'react';
+import React from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 
@@ -10,6 +10,28 @@ import { ThemeProvider, ThemeContext } from './contexts/ThemeContext';
 import themes from './styles/themes';
 
 class App extends React.Component {
+
+  state ={
+    change: false,
+  };
+
+
+  /* didMount é semelhante ao useEffect com array de dependencias, onde o componente é reiderizado e executado somente um vez. ja o useEfect sem o array de dependencia seria o mesmo que montar uma função dentro do render, assim toda vez q o componete é montado a funcção tbm é reinderizada. */
+  componentDidMount() {
+    console.log('executed component')
+  };
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log({
+      currentState: this.state,
+      prevState,
+      prevProps,
+    });
+  }
+
+
+
+
 /*   constructor(props) {
     super(props); //super faz referencia a classe extends. Como boa pratica e avitar problemas futuros tambem se passa a props no super.
 
@@ -33,11 +55,11 @@ class App extends React.Component {
 
 
   render() {
-
-
     return (
 
       <ThemeProvider>
+
+        <button onClick={() => this.setState({ change: true})}></button>
         <ThemeContext.Consumer>
          {({theme, handleToggleTheme}) => (
            <StyledThemeProvider theme={themes[theme] || themes.dark}>
